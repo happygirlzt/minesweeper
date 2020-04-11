@@ -79,3 +79,10 @@ def is_solution(clicks, board, mines_number):
     if number_of_opened_cells == 0:
         return True
     return False
+
+
+def shape_of_population(population):
+    res = []
+    for i in population:
+        res.append(len(i))
+    return res

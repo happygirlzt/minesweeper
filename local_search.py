@@ -43,9 +43,16 @@ def local_search(clicks, kept_percent, board, mines_number):
     return clicks_return
 
 
-if __name__ == '__main__':
-    clicks_list = [[(7, 7), (0, 0), (0,7), (7, 0), (4,6), (7, 5)]]  # optimal
-    for i in LOCAL_SEARCH_KEPT_PERCENT:
-        test = local_search(clicks_list[0], i, BEGINNER_BOARD, BEGINNER_MINES_NUMBER)
-        print(test)
-    # print(is_solution(clicks_list[0], BEGINNER_BOARD, BEGINNER_MINES_NUMBER))
+def generate_ls_population(population, ms_board, num_mines):
+    ls_population = []
+    for population_i in population:
+        steps = len(population_i)
+        best_ls_result = population_i
+        for i in LOCAL_SEARCH_KEPT_PERCENT:
+            ls_result = local_search(population_i, i, ms_board, num_mines)
+            if len(ls_result) < steps:
+                steps = len(ls_result)
+                best_ls_result = ls_result
+        ls_population.append(best_ls_result)
+    return ls_population
+
