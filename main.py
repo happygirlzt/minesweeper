@@ -12,7 +12,10 @@ if __name__ == '__main__':
     # key: string row+col: set(neighbors)
     # e.g. [3,4] key: 3+4
     all_uncovered_neighbors={}
-    population = generate_population(ms_board, BEGINNER_POPULATION,all_uncovered_neighbors)
+    inital_population= generate_population(ms_board, BEGINNER_POPULATION,all_uncovered_neighbors)
+    
+    population=copy.deepcopy(inital_population)
+    
     print('generated population = {}'.format(min(shape_of_population(population))))
 
     num_generations=5
@@ -47,8 +50,13 @@ if __name__ == '__main__':
         # print('population shape = {}'.format(shape_of_population(population)))
         optimal_ga.extend(shape_of_population(population))
         
-        best_steps=min(min(map(len, population)), best_steps)
+        # best_steps=min(min(map(len, population)), best_steps)
         
+        if best_steps < min(map(len, population)):
+            population=inital_population
+        else:
+            best_steps=min(map(len, population))
+            
         local_search_population = generate_ls_population(population, ms_board, num_mines)
         # print('local_search_population={}'.format(local_search_population))
         # print('local_search_population shape = {}'.format(shape_of_population(local_search_population)))
@@ -58,7 +66,7 @@ if __name__ == '__main__':
         global_optimal=min(best_steps,global_optimal)
         # print('{}'.format(population))
         # print('best result is {}'.format(best_steps))
-        
+    
     print('global optimal is {}'.format(global_optimal))
     print('optimal GA = {}'.format(min(optimal_ga)))
     print('optimal LS = {}'.format(min(optimal_ls)))
