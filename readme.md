@@ -1,5 +1,5 @@
 # Introduction
-This repo is the implementation of a memetic algoritm, including a genetic algorithm and local seach for a specific Minesweeper.
+This repo is the implementation of a memetic algorithm, including a genetic algorithm and local seach for a specific Minesweeper.
 
 ## Minesweeper
 We defind Minesweeper as an optimization question: given a 2D board, our algorithm returns the minimum number of total clicks to uncover all the empty cells.
